@@ -47,11 +47,11 @@ namespace MyFirstApplication.Controllers
                 Title = movieCard.Title,
                 Rated = movieCard.Rated,
                 Website = movieCard.Website,
-                Writer = movieCard.Writer
-                //ImageUrl = movieCard.Poster
+                Writer = movieCard.Writer,
+                ImageUrl = movieCard.Poster
             };
             return viewModel;
-            //throw new NotImplementedException();
+            
         }
 
         public IActionResult Privacy()
