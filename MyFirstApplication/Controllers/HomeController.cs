@@ -48,7 +48,7 @@ namespace MyFirstApplication.Controllers
                 Rated = movieCard.Rated,
                 Website = movieCard.Website,
                 Writer = movieCard.Writer,
-                ImageUrl = movieCard.Poster
+                //ImageUrl = movieCard.Poster
             };
             return viewModel;
             
