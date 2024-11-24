@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using MyFirstApplication.Models;
 using Newtonsoft.Json;
+using System.Collections;
 using System.Configuration;
 using System.Diagnostics;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -19,76 +21,46 @@ namespace MyFirstApplication.Controllers
 
         public async Task<IActionResult> Index()
         {
+            var listOfShows = await GetListOfShows();
+            var listofShowsViewModel = new List<ListOfShowsViewModel>();
 
-            Uri requestUri = new Uri("https://www.omdbapi.com/?i=tt3896198&apikey=a5a1b501");
+            foreach (var show in listOfShows)
+            {
+                listofShowsViewModel.Add(new ListOfShowsViewModel
+                {
+                    imageURL = show.Image.Medium,
+                    name = show.Name,
+                    rating = show.Rating
+                });
+                   
+            }
+
+            return View(listofShowsViewModel);
+        }
+
+        public async Task<IList<Show>> GetListOfShows()
+        {
+            Uri requestUri = new Uri("https://api.tvmaze.com/shows");
             HttpClient client = new HttpClient();
             client.BaseAddress = requestUri;
             HttpResponseMessage response = await client.GetAsync(requestUri);
-            
 
             if (response.IsSuccessStatusCode)
             {
-                var movieResponse = await response.Content.ReadAsStringAsync();
-                var movieObject = JsonConvert.DeserializeObject<Movie>(movieResponse);
-                var movieCard = MaptoMovie(movieObject);
-                var movieViewModel = ToViewModel(movieCard);
-                return View(movieViewModel);
+                var res = await response.Content.ReadAsStringAsync();
+                var showIndex = JsonConvert.DeserializeObject<IList<Show>>(res);
+                
+                if (showIndex != null)
+                {
+                    return showIndex;
+                }
             }
-            return View();
+                
+            return new List<Show>();
         }
-
-        private MovieViewModel ToViewModel(Movie movieCard)
-        {
-            var viewModel = new MovieViewModel
-            {
-                Actors = movieCard.Actors,
-                Director = movieCard.Director,
-                Genre = movieCard.Genre,
-                Title = movieCard.Title,
-                Rated = movieCard.Rated,
-                Website = movieCard.Website,
-                Writer = movieCard.Writer,
-                ImageUrl = movieCard.Poster
-            };
-            return viewModel;
-            
-        }
-
         public IActionResult Privacy()
         {
             return View();
-        }
-
-        public Movie MaptoMovie(Movie contentResponse)
-        {
-            var movie = new Movie
-            {
-                Title = contentResponse.Title,
-                Year = contentResponse.Year,
-                Director = contentResponse.Director,
-                Actors = contentResponse.Actors,
-                Awards = contentResponse.Awards,
-                Genre = contentResponse.Genre,
-                Writer = contentResponse.Writer,
-                Type = contentResponse.Type,
-                imdbRating = contentResponse.imdbRating,
-                imdbID = contentResponse.imdbID,
-                BoxOffice = contentResponse.BoxOffice,
-                Country = contentResponse.Country,
-                DVD = contentResponse.DVD,
-                imdbVotes = contentResponse.imdbVotes,
-                Language = contentResponse.Language,
-                Rated = contentResponse.Rated,
-                Plot = contentResponse.Plot,
-                Poster = contentResponse.Poster,
-                Production = contentResponse.Production,
-                Ratings = contentResponse.Ratings,
-                Released = contentResponse.Released,
-                Runtime = contentResponse.Runtime,
-                Response = contentResponse.Response,
-                Website = contentResponse.Website
-            };
-            return movie;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,23 +1,47 @@
-﻿@model MyFirstApplication.Models.MovieViewModel
+﻿@model List<MyFirstApplication.Models.ListOfShowsViewModel>
 
 
 
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p><a>Display List Of Shows</a>.</p>
+</div>
+<section>
+    <table>
+        <tr>
+           
+        </tr>
+        @{
+            int i = 0;
+            foreach (var item in Model)
+            {   
+                if(i<=3)
+                {
+                    <td>
+                        <img src="@item.imageURL" alt="@item.name">
+                        <div>
+                            <h4><b>@item.name</b></h4>
+                            <p>Rating @item.rating.Average</p>
+                        </div>
+                    </td>
+                    i = i + 1;
+                }
+                else
+                {
+                    i = 0;
+                    <tr>
+                        
+                    </tr>
+                    
+                }
+            }
+        
+        }
 
-    @{
-        ViewData["Title"] = "Home Page";
-
-
-        <p>@Model.Title</p>
-        <p>@Model.Actors</p>
-        <p>@Model.Director</p>
-        <p>@Model.Genre</p>
-        <p>@Model.Rated</p>
-        <p>@Model.Website</p>
-        <p>@Model.ImageUrl</p>
+    </table>
+    
 
     }
-</div>
+
+</section>
