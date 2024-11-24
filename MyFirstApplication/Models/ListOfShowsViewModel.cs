@@ -2,9 +2,10 @@
 {
     public class ListOfShowsViewModel
     {
-        public string? name {  get; set; }
-        public Rating? rating { get; set; }
-        public string? imageURL { get; set; }
+        public string? Name {  get; set; }
+        public Rating? Rating { get; set; }
+        public string? ImageURL { get; set; }
+        public string? URL { get; set; }
 
 
     }

@@ -28,9 +28,10 @@ namespace MyFirstApplication.Controllers
             {
                 listofShowsViewModel.Add(new ListOfShowsViewModel
                 {
-                    imageURL = show.Image.Medium,
-                    name = show.Name,
-                    rating = show.Rating
+                    ImageURL = show.Image.Medium,
+                    Name = show.Name,
+                    Rating = show.Rating,
+                    URL=show.Url
                 });
                    
             }

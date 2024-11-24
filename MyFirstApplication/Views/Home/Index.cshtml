@@ -1,8 +1,5 @@
 ﻿@model List<MyFirstApplication.Models.ListOfShowsViewModel>
 
-
-
-
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p><a>Display List Of Shows</a>.</p>
@@ -10,19 +7,23 @@
 <section>
     <table>
         <tr>
-           
         </tr>
         @{
             int i = 0;
             foreach (var item in Model)
-            {   
+            {
+               
                 if(i<=3)
                 {
                     <td>
-                        <img src="@item.imageURL" alt="@item.name">
+                    <a href="@item.URL">
+                        <img src="@item.ImageURL" alt="@item.Name">
+                    </a>
                         <div>
-                            <h4><b>@item.name</b></h4>
-                            <p>Rating @item.rating.Average</p>
+                        <a href="@item.URL">
+                            <h4 style="color:black;"><b>@item.Name</b></h4>
+                        </a>
+                            <p>Rating @item.Rating.Average</p>
                         </div>
                     </td>
                     i = i + 1;
@@ -30,8 +31,7 @@
                 else
                 {
                     i = 0;
-                    <tr>
-                        
+                    <tr>                        
                     </tr>
                     
                 }
@@ -40,8 +40,4 @@
         }
 
     </table>
-    
-
-    }
-
 </section>
