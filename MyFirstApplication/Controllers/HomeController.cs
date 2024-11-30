@@ -1,27 +1,31 @@
 using Microsoft.AspNetCore.Mvc;
 using MyFirstApplication.Models;
-using Newtonsoft.Json;
-using System.Collections;
-using System.Configuration;
 using System.Diagnostics;
-using System.Security.Cryptography.X509Certificates;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using MyFirstApplication.Services;
+using Newtonsoft.Json;
+using MyFirstApplication.Repository;
 
 namespace MyFirstApplication.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IConfiguration _configuration;
+        private readonly IServices _services;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, IServices services)
         {
             _logger = logger;
+            _configuration = configuration;
+            _services = services;
         }
 
         public async Task<IActionResult> Index()
         {
-            var listOfShows = await GetListOfShows();
+            
+            
+            var listOfShows = await _services.GetListOfShows();
+
             var listofShowsViewModel = new List<ListOfShowsViewModel>();
 
             foreach (var show in listOfShows)
@@ -31,33 +35,12 @@ namespace MyFirstApplication.Controllers
                     ImageURL = show.Image.Medium,
                     Name = show.Name,
                     Rating = show.Rating,
-                    URL=show.Url
+                    URL = show.Url
                 });
-                   
+
             }
 
             return View(listofShowsViewModel);
-        }
-
-        public async Task<IList<Show>> GetListOfShows()
-        {
-            Uri requestUri = new Uri("https://api.tvmaze.com/shows");
-            HttpClient client = new HttpClient();
-            client.BaseAddress = requestUri;
-            HttpResponseMessage response = await client.GetAsync(requestUri);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var res = await response.Content.ReadAsStringAsync();
-                var showIndex = JsonConvert.DeserializeObject<IList<Show>>(res);
-                
-                if (showIndex != null)
-                {
-                    return showIndex;
-                }
-            }
-                
-            return new List<Show>();
         }
         public IActionResult Privacy()
         {
