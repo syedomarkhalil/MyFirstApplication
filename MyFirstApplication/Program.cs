@@ -1,16 +1,16 @@
-using MyFirstApplication.Repository;
+using MyFirstApplication.Models;
 using MyFirstApplication.Services;
 
-
-
-
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
 // Add services to the container.
 var services = builder.Services;
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IServices, Services>();
 builder.Services.AddHttpClient();
+builder.Services.AddOptions();
 
 
 

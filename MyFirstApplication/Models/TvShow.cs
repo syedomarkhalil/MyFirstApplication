@@ -2,7 +2,7 @@
 {
     
 
-        public class Show
+        public class TvShow
         {
             public int Id { get; set; }
             public string? Url { get; set; }

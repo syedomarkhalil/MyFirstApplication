@@ -2,35 +2,31 @@ using Microsoft.AspNetCore.Mvc;
 using MyFirstApplication.Models;
 using System.Diagnostics;
 using MyFirstApplication.Services;
-using Newtonsoft.Json;
-using MyFirstApplication.Repository;
+
+
 
 namespace MyFirstApplication.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IConfiguration _configuration;
         private readonly IServices _services;
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, IServices services)
+        public HomeController(ILogger<HomeController> logger, IServices services)
         {
             _logger = logger;
-            _configuration = configuration;
             _services = services;
         }
 
         public async Task<IActionResult> Index()
-        {
-            
-            
-            var listOfShows = await _services.GetListOfShows();
+        {   
+            var listOfShows = await _services.GetListOfTvShows();
 
-            var listofShowsViewModel = new List<ListOfShowsViewModel>();
+            var listofShowsViewModel = new List<ListOfTvShowsViewModel>();
 
             foreach (var show in listOfShows)
             {
-                listofShowsViewModel.Add(new ListOfShowsViewModel
+                listofShowsViewModel.Add(new ListOfTvShowsViewModel
                 {
                     ImageURL = show.Image.Medium,
                     Name = show.Name,
