@@ -1,6 +1,6 @@
 ﻿namespace MyFirstApplication.Models
 {
-    public class ListOfShowsViewModel
+    public class ListOfTvShowsViewModel
     {
         public string? Name {  get; set; }
         public Rating? Rating { get; set; }
