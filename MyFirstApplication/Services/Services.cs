@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using MyFirstApplication.Models;
-using MyFirstApplication.Repository;
 using Newtonsoft.Json;
 using System.Configuration;
 using System.Net.Http;
@@ -11,24 +11,24 @@ namespace MyFirstApplication.Services
     public class Services : IServices
     {
         private readonly HttpClient _httpClient;
-        private readonly IConfiguration _configuration;
+        private readonly IOptions<AppSettings> _appSettings;
 
-        public Services(IHttpClientFactory httpClientFactory, IConfiguration configuration)
+        public Services(IHttpClientFactory httpClientFactory, IOptions<AppSettings> appSettings)
         {
             _httpClient = httpClientFactory.CreateClient();
-            _configuration = configuration;
+            _appSettings = appSettings;
         }
-        public async Task<IList<Show>> GetListOfShows()
+        public async Task<IList<TvShow>> GetListOfTvShows()
         {
-
-
-            var baseUri = _configuration["URL:BaseURI"];
-            HttpResponseMessage response = await _httpClient.GetAsync(baseUri);
+            
+            var baseURI = _appSettings.Value.BaseURI;
+            //var baseUri = _configuration["URL:BaseURI"];
+            var response = await _httpClient.GetAsync(baseURI);
 
             if (response.IsSuccessStatusCode)
             {
                 var res = await response.Content.ReadAsStringAsync();
-                var showIndex = JsonConvert.DeserializeObject<IList<Show>>(res);
+                var showIndex = JsonConvert.DeserializeObject<IList<TvShow>>(res);
 
                 if (showIndex != null)
                 {
@@ -36,7 +36,7 @@ namespace MyFirstApplication.Services
                 }
             }
 
-            return new List<Show>();
+            return new List<TvShow>();
         }
     }
    
