@@ -1,4 +1,4 @@
-﻿@model List<MyFirstApplication.Models.ListOfTvShowsViewModel>
+﻿@model List<MyFirstApplication.Models.TvShowViewModel>
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
@@ -17,13 +17,13 @@
                 {
                     <td>
                     <a href="@item.URL">
-                        <img src="@item.ImageURL" alt="@item.Name">
+                        <img src="@item.ImageUrl" alt="@item.Name">
                     </a>
                         <div>
                         <a href="@item.URL">
                             <h4 style="color:black;"><b>@item.Name</b></h4>
                         </a>
-                            <p>Rating @item.Rating.Average</p>
+                            <p>Rating @item.Rating?.Average</p>
                         </div>
                     </td>
                     i = i + 1;

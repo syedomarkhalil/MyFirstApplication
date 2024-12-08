@@ -2,6 +2,6 @@
 {
     public class AppSettings
     {
-        public string? BaseURI { get; set; }
+        public string? BaseUri { get; set; }
     }
 }
