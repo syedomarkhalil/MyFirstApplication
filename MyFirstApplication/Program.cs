@@ -3,19 +3,16 @@ using MyFirstApplication.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
-
 // Add services to the container.
 var services = builder.Services;
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IServices, Services>();
+builder.Services.AddScoped<ITvShowService, TvShowservice>();
 builder.Services.AddHttpClient();
 builder.Services.AddOptions();
 
-
-
 var app = builder.Build();
-
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -24,7 +21,6 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

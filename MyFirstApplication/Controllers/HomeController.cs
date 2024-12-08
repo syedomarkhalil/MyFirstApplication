@@ -1,43 +1,41 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using MyFirstApplication.Models;
-using System.Diagnostics;
 using MyFirstApplication.Services;
-
-
 
 namespace MyFirstApplication.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IServices _services;
+        private readonly ITvShowService _services;
 
-        public HomeController(ILogger<HomeController> logger, IServices services)
+        public HomeController(ILogger<HomeController> logger, ITvShowService services)
         {
             _logger = logger;
             _services = services;
         }
 
         public async Task<IActionResult> Index()
-        {   
-            var listOfShows = await _services.GetListOfTvShows();
+        {
+            var listOfShows = await _services.GetTvShows();
 
-            var listofShowsViewModel = new List<ListOfTvShowsViewModel>();
+            var listofShowsViewModel = new List<TvShowViewModel>();
 
             foreach (var show in listOfShows)
             {
-                listofShowsViewModel.Add(new ListOfTvShowsViewModel
+                listofShowsViewModel.Add(new TvShowViewModel
                 {
-                    ImageURL = show.Image.Medium,
+                    ImageUrl = show.Image?.Medium,
                     Name = show.Name,
                     Rating = show.Rating,
                     URL = show.Url
                 });
-
             }
 
             return View(listofShowsViewModel);
         }
+
         public IActionResult Privacy()
         {
             return View();

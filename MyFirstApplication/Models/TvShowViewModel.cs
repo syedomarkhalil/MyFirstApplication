@@ -1,12 +1,10 @@
 ﻿namespace MyFirstApplication.Models
 {
-    public class ListOfTvShowsViewModel
+    public class TvShowViewModel
     {
-        public string? Name {  get; set; }
+        public string? Name { get; set; }
         public Rating? Rating { get; set; }
-        public string? ImageURL { get; set; }
+        public string? ImageUrl { get; set; }
         public string? URL { get; set; }
-
-
     }
 }
