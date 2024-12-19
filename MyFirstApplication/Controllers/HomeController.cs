@@ -20,8 +20,6 @@ namespace MyFirstApplication.Controllers
         {
             var listOfShows = await _services.GetTvShows();
 
-            var showsViewModel = new List<TvShowViewModel>();
-
             var model = listOfShows.Select(show => new TvShowViewModel
             {
                 ImageUrl = show.Image.Medium,
@@ -29,17 +27,6 @@ namespace MyFirstApplication.Controllers
                 Rating = show.Rating,
                 URL = show.Url
             }).ToList();
-
-            //foreach (var show in listOfShows)
-            //{
-            //    showsViewModel.Add(new TvShowViewModel
-            //    {
-            //        ImageUrl = show.Image?.Medium,
-            //        Name = show.Name,
-            //        Rating = show.Rating,
-            //        URL = show.Url
-            //    });
-            //}
 
             return View(model);
         }
