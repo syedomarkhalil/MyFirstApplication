@@ -3,16 +3,16 @@ using MyFirstApplication.Models;
 
 namespace MyFirstApplication.Services
 {
-    public class TvShowservice : ITvShowService
+    public class TvShowService : ITvShowService
     {
         private readonly TvShowHttpClient _client;
 
-        public TvShowservice(TvShowHttpClient client)
+        public TvShowService(TvShowHttpClient client)
         {
             _client = client;
         }
 
-        public async Task<IList<TvShow>> GetTvShows()
+        public async Task<List<TvShow>> GetTvShows()
         {
             return await _client.GetTvShows();
         }

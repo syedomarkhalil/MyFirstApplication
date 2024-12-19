@@ -4,6 +4,6 @@ namespace MyFirstApplication.Services
 {
     public interface ITvShowService
     {
-        public Task<IList<TvShow>> GetTvShows();
+        public Task<List<TvShow>> GetTvShows();
     }
 }
