@@ -20,20 +20,28 @@ namespace MyFirstApplication.Controllers
         {
             var listOfShows = await _services.GetTvShows();
 
-            var listofShowsViewModel = new List<TvShowViewModel>();
+            var showsViewModel = new List<TvShowViewModel>();
 
-            foreach (var show in listOfShows)
+            var model = listOfShows.Select(show => new TvShowViewModel
             {
-                listofShowsViewModel.Add(new TvShowViewModel
-                {
-                    ImageUrl = show.Image?.Medium,
-                    Name = show.Name,
-                    Rating = show.Rating,
-                    URL = show.Url
-                });
-            }
+                ImageUrl = show.Image.Medium,
+                Name = show.Name,
+                Rating = show.Rating,
+                URL = show.Url
+            }).ToList();
 
-            return View(listofShowsViewModel);
+            //foreach (var show in listOfShows)
+            //{
+            //    showsViewModel.Add(new TvShowViewModel
+            //    {
+            //        ImageUrl = show.Image?.Medium,
+            //        Name = show.Name,
+            //        Rating = show.Rating,
+            //        URL = show.Url
+            //    });
+            //}
+
+            return View(model);
         }
 
         public IActionResult Privacy()
