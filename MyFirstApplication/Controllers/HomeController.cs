@@ -1,47 +1,36 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using MyFirstApplication.Models;
-using System.Diagnostics;
 using MyFirstApplication.Services;
-using Newtonsoft.Json;
-using MyFirstApplication.Repository;
 
 namespace MyFirstApplication.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IConfiguration _configuration;
-        private readonly IServices _services;
+        private readonly ITvShowService _services;
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, IServices services)
+        public HomeController(ILogger<HomeController> logger, ITvShowService services)
         {
             _logger = logger;
-            _configuration = configuration;
             _services = services;
         }
 
         public async Task<IActionResult> Index()
         {
-            
-            
-            var listOfShows = await _services.GetListOfShows();
+            var listOfShows = await _services.GetTvShows();
 
-            var listofShowsViewModel = new List<ListOfShowsViewModel>();
-
-            foreach (var show in listOfShows)
+            var model = listOfShows.Select(show => new TvShowViewModel
             {
-                listofShowsViewModel.Add(new ListOfShowsViewModel
-                {
-                    ImageURL = show.Image.Medium,
-                    Name = show.Name,
-                    Rating = show.Rating,
-                    URL = show.Url
-                });
+                ImageUrl = show.Image.Medium,
+                Name = show.Name,
+                Rating = show.Rating,
+                URL = show.Url
+            }).ToList();
 
-            }
-
-            return View(listofShowsViewModel);
+            return View(model);
         }
+
         public IActionResult Privacy()
         {
             return View();
