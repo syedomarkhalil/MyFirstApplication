@@ -3,6 +3,17 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p><a>Display List Of Shows</a>.</p>
+    @{
+        var pageCount =(int)ViewData["PageCount"];
+
+        for(int p=1; p<= pageCount; p++)
+        {
+
+            <a href="https://localhost:44378/Home/index/@p">@p</a>
+            
+        }
+    }
+    <p></p>
 </div>
 <section>
     <table>
@@ -30,9 +41,21 @@
                 }
                 else
                 {
-                    i = 0;
-                    <tr>                        
+                    i = 1;
+                    <tr>    
                     </tr>
+                        <td>
+                        <a href="@item.URL">
+                            <img src="@item.ImageUrl" alt="@item.Name">
+                        </a>
+                            <div>
+                            <a href="@item.URL">
+                                <h4 style="color:black;"><b>@item.Name</b></h4>
+                            </a>
+                                <p>Rating @item.Rating?.Average</p>
+                            </div>
+                        </td>
+                    
                     
                 }
             }
