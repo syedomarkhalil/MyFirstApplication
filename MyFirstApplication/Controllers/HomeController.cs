@@ -1,47 +1,53 @@
-using Microsoft.AspNetCore.Mvc;
-using MyFirstApplication.Models;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using MyFirstApplication.Models;
 using MyFirstApplication.Services;
-using Newtonsoft.Json;
-using MyFirstApplication.Repository;
 
 namespace MyFirstApplication.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IConfiguration _configuration;
-        private readonly IServices _services;
+        private readonly ITvShowService _services;
+        private readonly IOptions<AppSettings> _settings;
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, IServices services)
+        public HomeController(ILogger<HomeController> logger, ITvShowService services, IOptions<AppSettings> settings)
         {
             _logger = logger;
-            _configuration = configuration;
             _services = services;
+            _settings = settings;
         }
 
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        public async Task<IActionResult> Index(int id)
         {
-            
-            
-            var listOfShows = await _services.GetListOfShows();
+            var pageSize = _settings.Value.PageSize;
+            int pageCount;
+            List<TvShow> paginatedResult;
 
-            var listofShowsViewModel = new List<ListOfShowsViewModel>();
+            var listOfShows = await _services.GetTvShows();
 
-            foreach (var show in listOfShows)
+            GetPagination(id, pageSize, listOfShows, out pageCount, out paginatedResult);
+
+            var model = paginatedResult.Select(show => new TvShowViewModel
             {
-                listofShowsViewModel.Add(new ListOfShowsViewModel
-                {
-                    ImageURL = show.Image.Medium,
-                    Name = show.Name,
-                    Rating = show.Rating,
-                    URL = show.Url
-                });
+                ImageUrl = show.Image.Medium,
+                Name = show.Name,
+                Rating = show.Rating,
+                URL = show.Url
+            }).ToList();
+            ViewData["PageCount"] = pageCount;
 
-            }
-
-            return View(listofShowsViewModel);
+            return View(model);
         }
+
+        private static void GetPagination(int id, int pageSize, List<TvShow> listOfShows, out int pageCount, out List<TvShow> paginatedResult)
+        {
+            pageCount = (int)Math.Ceiling((double)(listOfShows.Count / pageSize));
+            paginatedResult = listOfShows.Skip((id - 1) * pageSize).Take(pageSize).ToList();
+        }
+
         public IActionResult Privacy()
         {
             return View();
