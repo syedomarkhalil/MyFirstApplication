@@ -1,16 +1,15 @@
 ﻿@model List<MyFirstApplication.Models.TvShowViewModel>
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    Welcome
     <p><a>Display List Of Shows</a>.</p>
     @{
         var pageCount =(int)ViewData["PageCount"];
 
         for(int p=1; p<= pageCount; p++)
         {
-
-            <a href="https://localhost:44378/Home/index/@p">@p</a>
-            
+            @Html.ActionLink(p.ToString(), "Index", "Home", new {pageNumber = p})
+            <span> </span>           
         }
     }
     <p></p>

@@ -20,7 +20,7 @@ namespace MyFirstApplication.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index(int pageNumber = 1)
         {
             var pageSize = _settings.Value.PageSize;
             int pageCount;
@@ -28,7 +28,7 @@ namespace MyFirstApplication.Controllers
 
             var listOfShows = await _services.GetTvShows();
 
-            GetPagination(id, pageSize, listOfShows, out pageCount, out paginatedResult);
+            GetPagination(pageNumber, pageSize, listOfShows, out pageCount, out paginatedResult);
 
             var model = paginatedResult.Select(show => new TvShowViewModel
             {
