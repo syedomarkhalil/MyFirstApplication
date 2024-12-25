@@ -42,10 +42,10 @@ namespace MyFirstApplication.Controllers
             return View(model);
         }
 
-        private static void GetPagination(int id, int pageSize, List<TvShow> listOfShows, out int pageCount, out List<TvShow> paginatedResult)
+        private static void GetPagination(int pageNumber, int pageSize, List<TvShow> listOfShows, out int pageCount, out List<TvShow> paginatedResult)
         {
             pageCount = (int)Math.Ceiling((double)(listOfShows.Count / pageSize));
-            paginatedResult = listOfShows.Skip((id - 1) * pageSize).Take(pageSize).ToList();
+            paginatedResult = listOfShows.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
         }
 
         public IActionResult Privacy()
