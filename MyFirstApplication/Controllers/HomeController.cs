@@ -1,8 +1,9 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using MyFirstApplication.Models;
+using System.Diagnostics;
 using MyFirstApplication.Services;
+using Newtonsoft.Json;
+using MyFirstApplication.Repository;
 
 namespace MyFirstApplication.Controllers
 {
@@ -19,8 +20,7 @@ namespace MyFirstApplication.Controllers
             _settings = settings;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Index(int pageNumber = 1)
+        public async Task<IActionResult> Index(int pageNumber)
         {
             var pageSize = _settings.Value.PageSize;
             (var listOfShows, int totalPages) = await _tvShowService.GetTvShows(pageNumber, pageSize);
@@ -34,7 +34,6 @@ namespace MyFirstApplication.Controllers
             }).ToList();
 
             ViewData["TotalPages"] = totalPages;
-
             return View(model);
         }
 
