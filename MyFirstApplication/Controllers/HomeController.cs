@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using MyFirstApplication.Models;
 using MyFirstApplication.Services;
 
@@ -8,17 +9,20 @@ namespace MyFirstApplication.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ITvShowService _services;
+        private readonly ITvShowService _tvShowService;
+        private readonly IOptions<AppSettings> _settings;
 
-        public HomeController(ILogger<HomeController> logger, ITvShowService services)
+        public HomeController(ILogger<HomeController> logger, ITvShowService tvShowService, IOptions<AppSettings> settings)
         {
             _logger = logger;
-            _services = services;
+            _tvShowService = tvShowService;
+            _settings = settings;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pageNumber)
         {
-            var listOfShows = await _services.GetTvShows();
+            var pageSize = _settings.Value.PageSize;
+            (var listOfShows, int totalPages) = await _tvShowService.GetTvShows(pageNumber, pageSize);
 
             var model = listOfShows.Select(show => new TvShowViewModel
             {
@@ -28,6 +32,7 @@ namespace MyFirstApplication.Controllers
                 URL = show.Url
             }).ToList();
 
+            ViewData["TotalPages"] = totalPages;
             return View(model);
         }
 
