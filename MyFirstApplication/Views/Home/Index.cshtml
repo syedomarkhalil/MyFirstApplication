@@ -3,63 +3,50 @@
 <div class="text-center">
     Welcome
     <p><a>Display List Of Shows</a>.</p>
-    @{
-        var pageCount =(int)ViewData["PageCount"];
 
-        for(int p=1; p<= pageCount; p++)
-        {
-            @Html.ActionLink(p.ToString(), "Index", "Home", new {pageNumber = p})
-            <span> </span>           
-        }
+    @{
+        var totalPages = (int)ViewData["TotalPages"];
+        var paginationVewModel = new PaginationViewModel
+            {
+                TotalPages = totalPages
+            };
     }
+   @Html.Partial("_Pagination", paginationVewModel)
     <p></p>
 </div>
 <section>
+
     <table>
-        <tr>
-        </tr>
         @{
-            int i = 0;
-            foreach (var item in Model)
+            int itemsPerRow = 4;
+            int totalItems = Model.Count;        
+
+            for (int i = 0; i < totalItems; i++)
             {
-               
-                if(i<=3)
+                if (i % itemsPerRow == 0) // Start a new row
                 {
-                    <td>
-                    <a href="@item.URL">
-                        <img src="@item.ImageUrl" alt="@item.Name">
-                    </a>
-                        <div>
-                        <a href="@item.URL">
-                            <h4 style="color:black;"><b>@item.Name</b></h4>
-                        </a>
-                            <p>Rating @item.Rating?.Average</p>
-                        </div>
-                    </td>
-                    i = i + 1;
+                    <tr></tr>
                 }
-                else
-                {
-                    i = 1;
-                    <tr>    
-                    </tr>
-                        <td>
-                        <a href="@item.URL">
-                            <img src="@item.ImageUrl" alt="@item.Name">
+
+                <td>
+                    <a href="@Model[i].URL">
+                        <img src="@Model[i].ImageUrl" alt="@Model[i].Name">
+                    </a>
+                    <div>
+                        <a href="@Model[i].URL">
+                            <h4 style="color:black;"><b>@Model[i].Name</b></h4>
                         </a>
-                            <div>
-                            <a href="@item.URL">
-                                <h4 style="color:black;"><b>@item.Name</b></h4>
-                            </a>
-                                <p>Rating @item.Rating?.Average</p>
-                            </div>
-                        </td>
-                    
-                    
+                        <p>Rating @Model[i].Rating?.Average</p>
+                    </div>
+                </td>
+                if (i % itemsPerRow == itemsPerRow - 1 || i == totalItems - 1) // Close the row
+                {
+                    <tr></tr>
                 }
             }
-        
         }
-
     </table>
 </section>
+<div class=" text-center">
+    @Html.Partial("_Pagination", paginationVewModel)
+</div>

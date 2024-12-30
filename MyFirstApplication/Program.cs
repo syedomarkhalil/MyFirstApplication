@@ -16,7 +16,7 @@ builder.Services.AddHttpClient<TvShowHttpClient>((client) =>
     client.BaseAddress = new Uri(appSettings.BaseUri);
 });
 
-builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection(nameof(AppSettings)));
 builder.Services.AddOptions();
 
 var app = builder.Build();

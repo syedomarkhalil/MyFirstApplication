@@ -1,0 +1,14 @@
+﻿@model PaginationViewModel
+
+@{
+    
+
+    for (int p = 1; p <= Model.TotalPages; p++)
+    {
+        @Html.ActionLink(p.ToString(), "Index", "Home", new { pageNumber = p })
+        <span> </span>
+    }
+}
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
