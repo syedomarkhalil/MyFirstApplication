@@ -1,9 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
-using MyFirstApplication.Models;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using MyFirstApplication.Models;
 using MyFirstApplication.Services;
-using Newtonsoft.Json;
-using MyFirstApplication.Repository;
 
 namespace MyFirstApplication.Controllers
 {

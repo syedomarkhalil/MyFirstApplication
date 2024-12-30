@@ -1,11 +1,25 @@
+using MyFirstApplication.Infrastructure;
 using MyFirstApplication.Models;
+using MyFirstApplication.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var services = builder.Services;
+
+// read the appsettings here, see the use of nameof operator
+var appSettingsSection = builder.Configuration.GetSection(nameof(AppSettings));
+var appSettings = appSettingsSection.Get<AppSettings>()!;
+
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IServices, Services>();
+builder.Services.AddScoped<ITvShowService, TvShowService>();
+
+// configure the TvShowHttpClient, with the BaseUri from appSettings.
+builder.Services.AddHttpClient<TvShowHttpClient>(client =>
+{
+    client.BaseAddress = new Uri(appSettings.BaseUri);
+});
+
 builder.Services.AddHttpClient();
 
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection(nameof(AppSettings)));
