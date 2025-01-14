@@ -6,6 +6,7 @@ using MyFirstApplication.Services;
 
 namespace MyFirstApplication.Controllers
 {
+    [Route("[controller]/[action]")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -19,7 +20,10 @@ namespace MyFirstApplication.Controllers
             _settings = settings;
         }
 
-        public async Task<IActionResult> Index(int pageNumber)
+        [Route("")]
+        [Route("~/")]
+        [Route("{pageNumber?}", Name = "Get_Shows")]
+        public async Task<IActionResult> Index(int pageNumber = 1)
         {
             var pageSize = _settings.Value.PageSize;
             (var listOfShows, int totalPages) = await _tvShowService.GetTvShows(pageNumber, pageSize);
@@ -31,7 +35,6 @@ namespace MyFirstApplication.Controllers
                 Rating = show.Rating,
                 URL = show.Url
             }).ToList();
-
             ViewData["TotalPages"] = totalPages;
             return View(model);
         }

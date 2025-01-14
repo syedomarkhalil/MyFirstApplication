@@ -1,11 +1,9 @@
 ﻿@model PaginationViewModel
 
 @{
-    
-
     for (int p = 1; p <= Model.TotalPages; p++)
     {
-        @Html.ActionLink(p.ToString(), "Index", "Home", new { pageNumber = p })
+        <a href ="@Url.RouteUrl("Get_Shows", new { pageNumber = p })">@p.ToString()</a>
         <span> </span>
     }
 }
