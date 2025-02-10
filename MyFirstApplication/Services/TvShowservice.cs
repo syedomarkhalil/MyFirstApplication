@@ -1,4 +1,5 @@
-﻿using MyFirstApplication.Infrastructure;
+﻿using MyFirstApplication.Extensions;
+using MyFirstApplication.Infrastructure;
 using MyFirstApplication.Models;
 
 namespace MyFirstApplication.Services
@@ -12,9 +13,11 @@ namespace MyFirstApplication.Services
             _client = client;
         }
 
-        public async Task<List<TvShow>> GetTvShows()
+        public async Task<(List<TvShow>, int)> GetTvShows(int pageNumber, int pageSize)
         {
-            return await _client.GetTvShows();
+            var listOfShows = await _client.GetTvShows();
+            (List<TvShow> paginatedListOfShows, int totalPages) = listOfShows.Pagify(pageNumber, pageSize);
+            return (paginatedListOfShows, totalPages);
         }
     }
 }

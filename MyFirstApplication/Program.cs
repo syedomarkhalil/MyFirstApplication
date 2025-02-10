@@ -6,16 +6,23 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var services = builder.Services;
+
+// read the appsettings here, see the use of nameof operator
 var appSettingsSection = builder.Configuration.GetSection(nameof(AppSettings));
-var appSettings = appSettingsSection.Get<AppSettings>();
+var appSettings = appSettingsSection.Get<AppSettings>()!;
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ITvShowService, TvShowService>();
-builder.Services.AddHttpClient<TvShowHttpClient>((client) =>
+
+// configure the TvShowHttpClient, with the BaseUri from appSettings.
+builder.Services.AddHttpClient<TvShowHttpClient>(client =>
 {
     client.BaseAddress = new Uri(appSettings.BaseUri);
 });
 
+builder.Services.AddHttpClient();
+
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection(nameof(AppSettings)));
 builder.Services.AddOptions();
 
 var app = builder.Build();
@@ -35,6 +42,9 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllers();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{pageNumber?}");
 
 app.Run();
