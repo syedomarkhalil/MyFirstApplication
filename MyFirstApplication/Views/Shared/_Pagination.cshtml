@@ -3,7 +3,7 @@
 @{
     for (int p = 1; p <= Model.TotalPages; p++)
     {
-        <a href ="@Url.RouteUrl("Get_Shows", new { pageNumber = p })">@p.ToString()</a>
+        <a href ="@Url.RouteUrl(Model.RouteName, new { pageNumber = p })">@p.ToString()</a>
         <span> </span>
     }
 }

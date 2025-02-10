@@ -16,7 +16,7 @@ namespace MyFirstApplication.Services
         public async Task<(List<TvShow>, int)> GetTvShows(int pageNumber, int pageSize)
         {
             var listOfShows = await _client.GetTvShows();
-            (List<TvShow> paginatedListOfShows, int totalPages) = listOfShows.Pagination(pageNumber, pageSize);
+            (List<TvShow> paginatedListOfShows, int totalPages) = listOfShows.Pagify(pageNumber, pageSize);
             return (paginatedListOfShows, totalPages);
         }
     }

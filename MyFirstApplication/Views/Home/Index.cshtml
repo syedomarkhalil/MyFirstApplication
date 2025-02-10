@@ -6,12 +6,14 @@
 
     @{
         var totalPages = (int)ViewData["TotalPages"];
+        var routeName = ViewContext.ActionDescriptor.AttributeRouteInfo.Name;
         var paginationVewModel = new PaginationViewModel
             {
-                TotalPages = totalPages
+                TotalPages = totalPages,
+                RouteName = routeName
             };
     }
-   @Html.Partial("_Pagination", paginationVewModel)
+    @Html.Partial("_Pagination", paginationVewModel)
     <p></p>
 </div>
 <section>
