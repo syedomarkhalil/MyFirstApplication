@@ -1,10 +1,12 @@
-﻿namespace MyFirstApplication.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace MyFirstApplication.Models;
 
 public class Links
 {
-    [JsonProperty("self")]
+    [JsonPropertyName("self")]
     public Self Self { get; set; }
 
-    [JsonProperty("previousepisode")]
+    [JsonPropertyName("previousepisode")]
     public Previousepisode Previousepisode { get; set; }
 }

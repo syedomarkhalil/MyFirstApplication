@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using MyFirstApplication.Infrastructure;
 using MyFirstApplication.Models;
 using MyFirstApplication.Services;

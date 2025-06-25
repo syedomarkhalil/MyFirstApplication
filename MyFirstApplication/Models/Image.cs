@@ -1,10 +1,12 @@
-﻿namespace MyFirstApplication.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace MyFirstApplication.Models;
 
 public class Image
 {
-    [JsonProperty("medium")]
+    [JsonPropertyName("medium")]
     public string Medium { get; set; }
 
-    [JsonProperty("original")]
+    [JsonPropertyName("original")]
     public string Original { get; set; }
 }

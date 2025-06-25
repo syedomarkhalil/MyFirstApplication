@@ -1,16 +1,18 @@
-﻿namespace MyFirstApplication.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace MyFirstApplication.Models;
 
 public class Network
 {
-    [JsonProperty("id")]
+    [JsonPropertyName("id")]
     public int Id { get; set; }
 
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
 
-    [JsonProperty("country")]
+    [JsonPropertyName("country")]
     public Country Country { get; set; }
 
-    [JsonProperty("officialSite")]
+    [JsonPropertyName("officialSite")]
     public string OfficialSite { get; set; }
 }

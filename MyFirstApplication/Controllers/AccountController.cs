@@ -1,4 +1,6 @@
-﻿using MyFirstApplication.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using MyFirstApplication.Models;
 
 namespace MyFirstApplication.Controllers
 {

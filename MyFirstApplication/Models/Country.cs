@@ -1,13 +1,15 @@
-﻿namespace MyFirstApplication.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace MyFirstApplication.Models;
 
 public class Country
 {
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
 
-    [JsonProperty("code")]
+    [JsonPropertyName("code")]
     public string Code { get; set; }
 
-    [JsonProperty("timezone")]
+    [JsonPropertyName("timezone")]
     public string Timezone { get; set; }
 }

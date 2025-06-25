@@ -1,10 +1,12 @@
-﻿namespace MyFirstApplication.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace MyFirstApplication.Models;
 
 public class Schedule
 {
-    [JsonProperty("time")]
+    [JsonPropertyName("time")]
     public string Time { get; set; }
 
-    [JsonProperty("days")]
+    [JsonPropertyName("days")]
     public IList<string> Days { get; set; }
 }

@@ -1,4 +1,7 @@
-﻿namespace MyFirstApplication.Models
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authentication;
+
+namespace MyFirstApplication.Models
 {
     public class LoginViewModel
     {
