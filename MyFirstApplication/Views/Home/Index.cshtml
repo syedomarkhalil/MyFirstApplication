@@ -4,8 +4,14 @@
     <h1 class="display-4">Welcome</h1>
     <p><a>Display List Of Shows</a>.</p>
 
+
     @{
-        var totalPages = (int)ViewData["TotalPages"];
+        var totalPages = 0;
+        if(ViewData["TotalPages"]!=null)
+        {
+            totalPages = (int)ViewData["TotalPages"];
+        }
+
         var routeName = ViewContext.ActionDescriptor.AttributeRouteInfo.Name;
         var paginationVewModel = new PaginationViewModel
             {
@@ -16,6 +22,9 @@
     @Html.Partial("_Pagination", paginationVewModel)
     <p></p>
 </div>
+@* <div class="text-right">
+    <a href ="", style ="text-align:right">Login</a>
+</div> *@
 <section>
 
     <table>

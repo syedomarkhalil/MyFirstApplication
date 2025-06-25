@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace MyFirstApplication.Models;
+﻿namespace MyFirstApplication.Models;
 
 public class TvShow
 {

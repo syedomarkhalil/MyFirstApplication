@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace MyFirstApplication.Models;
+﻿namespace MyFirstApplication.Models;
 
 public class Rating
 {

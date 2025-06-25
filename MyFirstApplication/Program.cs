@@ -11,19 +11,43 @@ var services = builder.Services;
 var appSettingsSection = builder.Configuration.GetSection(nameof(AppSettings));
 var appSettings = appSettingsSection.Get<AppSettings>()!;
 
-builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<ITvShowService, TvShowService>();
-
 // configure the TvShowHttpClient, with the BaseUri from appSettings.
-builder.Services.AddHttpClient<TvShowHttpClient>(client =>
+services.AddHttpClient<TvShowHttpClient>(client =>
 {
-    client.BaseAddress = new Uri(appSettings.BaseUri);
+    client.BaseAddress = new Uri(appSettings.BaseUri!);
 });
 
-builder.Services.AddHttpClient();
+services.AddHttpClient();
 
-builder.Services.Configure<AppSettings>(builder.Configuration.GetSection(nameof(AppSettings)));
-builder.Services.AddOptions();
+services.AddControllersWithViews();
+
+var googleAuthSection = builder.Configuration.GetSection("Authentication:Google");
+var googleClientId = googleAuthSection["ClientId"];
+var googleClientSecret = googleAuthSection["ClientSecret"];
+
+services.AddAuthentication(options =>
+    {
+        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+    })
+    .AddCookie()
+    .AddGoogle(options =>
+    {
+        options.ClientId = googleClientId!;
+        options.ClientSecret = googleClientSecret!;
+    });
+
+//services.AddAuthentication()
+//        .AddGoogle(google =>
+//        {
+//            google.ClientId = "877899375263-m4io06muost8fv7l6k68lugkcr58eicc.apps.googleusercontent.com";
+//            google.ClientSecret = "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";
+//        });
+
+services.AddScoped<ITvShowService, TvShowService>();
+
+services.Configure<AppSettings>(builder.Configuration.GetSection(nameof(AppSettings)));
+services.AddOptions();
 
 var app = builder.Build();
 
@@ -40,6 +64,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
