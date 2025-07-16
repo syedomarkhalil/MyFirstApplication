@@ -34,5 +34,16 @@
     <div class="col-md-6">
         <h1>External Login</h1>
         <hr />
+        @{
+            var routeName = "https://localhost:44378/Home/Index";
+
+            //This was not working for some reason
+            //ViewContext.ActionDescriptor.AttributeRouteInfo.Name; 
+         }
+
+        @Html.ActionLink("Sign In With Google", "SignInWithGoogle", "Account", new { returnUrl = routeName })
+        
+        @*earlier i used href*@
+        @* <a href="https://accounts.google.com/o/oauth2/v2/auth?access_type=online&client_id=877899375263-m4io06muost8fv7l6k68lugkcr58eicc.apps.googleusercontent.com&redirect_uri=https://localhost:44378/Home/Index&response_type=code&scope=email&prompt=consent">Sign In With Google</a> *@
     </div>
 </div>

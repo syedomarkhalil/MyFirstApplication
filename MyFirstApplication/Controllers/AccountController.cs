@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using MyFirstApplication.Models;
 
 namespace MyFirstApplication.Controllers
@@ -7,13 +7,11 @@ namespace MyFirstApplication.Controllers
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IOptions<AppSettings> _settings;
 
-        public AccountController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
+        public AccountController(IOptions<AppSettings> settings)
         {
-            _signInManager = signInManager;
-            _userManager = userManager;
+            _settings = settings;
         }
 
         [HttpPost]
@@ -22,14 +20,25 @@ namespace MyFirstApplication.Controllers
             return View();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Login(string returnUrl)
+        public IActionResult SignInWithGoogle(string returnUrl)
         {
-            LoginViewModel model = new LoginViewModel
-            {
-                ReturnUrl = returnUrl,
-                ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
-            };
+            var clientId = "877899375263-m4io06muost8fv7l6k68lugkcr58eicc.apps.googleusercontent.com";
+            var redirectUri = returnUrl;
+            var url = "https://accounts.google.com/o/oauth2/v2/auth?access_type=online&client_id=" + clientId + "&redirect_uri=" + redirectUri + "&response_type=code&scope=email&prompt=consent";
+
+            HttpContext.Response.Redirect(url, true);
+
+            return View("Login");
+        }
+
+        [HttpGet]
+        public IActionResult Login(string returnUrl)
+        {
+            //LoginViewModel model = new LoginViewModel
+            //{
+            //    ReturnUrl = returnUrl,
+            //    ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
+            //};
             return View();
         }
 
@@ -37,75 +46,6 @@ namespace MyFirstApplication.Controllers
         public ActionResult Index()
         {
             return View();
-        }
-
-        // GET: AccountController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: AccountController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: AccountController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: AccountController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: AccountController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: AccountController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: AccountController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }
