@@ -22,26 +22,29 @@ namespace MyFirstApplication.Controllers
 
         [Route("")]
         [Route("~/")]
-        [Route("{pageNumber?}", Name = "Get_Shows")]
+        [Route("{pageNumber?}/{tokenInfo}", Name = "Get_Shows")]
         public async Task<IActionResult> Index(int pageNumber = 1)
+        {
+            var model = await GetTvShows(pageNumber);
+            return View(model);
+        }
+
+        public async Task<TvShowViewModel> GetTvShows(int pageNumber)
         {
             var pageSize = _settings.Value.PageSize;
             (var listOfShows, int totalPages) = await _tvShowService.GetTvShows(pageNumber, pageSize);
 
-            var model = listOfShows.Select(show => new TvShowViewModel
+            var model = new TvShowViewModel();
+            model.TvShows = listOfShows.Select(show => new TvShows
             {
                 ImageUrl = show.Image.Medium,
                 Name = show.Name,
                 Rating = show.Rating,
                 URL = show.Url
             }).ToList();
-            ViewData["TotalPages"] = totalPages;
-            return View(model);
-        }
+            model.TotalPages = totalPages;
 
-        public IActionResult Privacy()
-        {
-            return View();
+            return model;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

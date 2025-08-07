@@ -20,31 +20,23 @@ services.AddHttpClient<TvShowHttpClient>(client =>
 });
 
 services.AddHttpClient();
-
 services.AddControllersWithViews();
 
-var googleAuthSection = builder.Configuration.GetSection("Authentication:Google");
+var googleAuthSection = builder.Configuration.GetSection("Authentication:GoogleSettings");
 var googleClientId = googleAuthSection["ClientId"];
 var googleClientSecret = googleAuthSection["ClientSecret"];
 
-services.AddAuthentication(options =>
+services.AddAuthentication(google =>
     {
-        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+        google.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        google.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
     })
     .AddCookie()
-    .AddGoogle(options =>
+    .AddGoogle(google =>
     {
-        options.ClientId = googleClientId!;
-        options.ClientSecret = googleClientSecret!;
+        google.ClientId = googleClientId!;
+        google.ClientSecret = googleClientSecret!;
     });
-
-//services.AddAuthentication()
-//        .AddGoogle(google =>
-//        {
-//            google.ClientId = "877899375263-m4io06muost8fv7l6k68lugkcr58eicc.apps.googleusercontent.com";
-//            google.ClientSecret = "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";
-//        });
 
 services.AddScoped<ITvShowService, TvShowService>();
 
