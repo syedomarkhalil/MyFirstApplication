@@ -25,27 +25,21 @@
                         @* <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li> *@
+
                         <li class="nav-item">
                             @{
-                                if(Context.User.Identity.IsAuthenticated)
-                                {
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
-                                    
-                                }
-                                else
-                                {
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                                }                                
-                            }                            
-                        </li>
-                        @{
-                            if(Context.User.Identity.IsAuthenticated)
-                            {
-                                <li>
-                                    <a class="nav-link text-dark">@User.Identity?.Name</a>
-                                </li>                                
+                                var isAuthenticated = User.Identity.IsAuthenticated;
+                                var linkText = isAuthenticated ? "Logout" : "Login";
+                                var action = isAuthenticated ? "Logout" : "Login"; // in case action method is different to linkText, but last and this line are indentical
                             }
-                        }                        
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="@action">@linkText</a>
+                        </li>
+                        @if (isAuthenticated)
+                        {
+                            <li>
+                                <a class="nav-link text-dark">@User.Identity?.Name</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

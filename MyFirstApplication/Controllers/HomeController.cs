@@ -22,7 +22,7 @@ namespace MyFirstApplication.Controllers
 
         [Route("")]
         [Route("~/")]
-        [Route("{pageNumber?}/{tokenInfo}", Name = "Get_Shows")]
+        [Route("{pageNumber?}", Name = "Get_Shows")]
         public async Task<IActionResult> Index(int pageNumber = 1)
         {
             var model = await GetTvShows(pageNumber);

@@ -22,10 +22,6 @@ services.AddHttpClient<TvShowHttpClient>(client =>
 services.AddHttpClient();
 services.AddControllersWithViews();
 
-var googleAuthSection = builder.Configuration.GetSection("Authentication:GoogleSettings");
-var googleClientId = googleAuthSection["ClientId"];
-var googleClientSecret = googleAuthSection["ClientSecret"];
-
 services.AddAuthentication(google =>
     {
         google.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -34,8 +30,8 @@ services.AddAuthentication(google =>
     .AddCookie()
     .AddGoogle(google =>
     {
-        google.ClientId = googleClientId!;
-        google.ClientSecret = googleClientSecret!;
+        google.ClientId = appSettings.GoogleAuthSettings?.ClientId!;
+        google.ClientSecret = appSettings.GoogleAuthSettings?.ClientSecret!;
     });
 
 services.AddScoped<ITvShowService, TvShowService>();
