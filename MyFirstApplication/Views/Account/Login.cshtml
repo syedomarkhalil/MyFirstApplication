@@ -12,30 +12,41 @@
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
+                <input asp-for="Email" disabled class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Password"></label>
-                <input asp-for="Password" class="form-control" />
+                <input asp-for="Password" disabled class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <div class="checkbox">
                     <label asp-for="RememberMe">
-                        <input asp-for="RememberMe" />
+                        <input asp-for="RememberMe" disabled />
                         @Html.DisplayNameFor(m => m.RememberMe)
                     </label>
                 </div>
-            </div>
-            
+            </div>            
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
     </div>
     <div class="col-md-6">
-        <h1>External Login</h1>
-               
-        @Html.ActionLink("Sign In With Google", "SignInWithGoogle", "Account")
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <h1>Social Media Login</h1>
+
+        <div class="col">
+            <a href="@Url.Action("SignInWithGoogle", "Account")" class="google btn">
+                <i class="fa fa-google fa-fw"></i> Google
+            </a>
+            <a href="#" class="fb btn">
+                <i class="fa fa-facebook fa-fw"></i> Facebook
+            </a>
+            <a href="#" class="twitter btn">
+                <i class="fa fa-twitter fa-fw"></i> Twitter
+            </a>            
+      </div>
+        @* @Html.ActionLink("Sign In With Google", "SignInWithGoogle", "Account") *@
         
     </div>
 </div>

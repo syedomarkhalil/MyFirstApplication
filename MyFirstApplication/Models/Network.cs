@@ -8,11 +8,11 @@ public class Network
     public int Id { get; set; }
 
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     [JsonPropertyName("country")]
-    public Country Country { get; set; }
+    public Country? Country { get; set; }
 
     [JsonPropertyName("officialSite")]
-    public string OfficialSite { get; set; }
+    public string? OfficialSite { get; set; }
 }

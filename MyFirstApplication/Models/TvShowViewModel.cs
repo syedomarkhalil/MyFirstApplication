@@ -4,7 +4,6 @@
     {
         public List<TvShows>? TvShows { get; set; }
         public int TotalPages { get; set; }
-        public Dictionary<string, string>? TokenInfo { get; set; }
     }
 
     public class TvShows

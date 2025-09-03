@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using MyFirstApplication.Models;
@@ -6,6 +7,7 @@ using MyFirstApplication.Services;
 
 namespace MyFirstApplication.Controllers
 {
+    [Authorize]
     [Route("[controller]/[action]")]
     public class HomeController : Controller
     {
@@ -37,7 +39,7 @@ namespace MyFirstApplication.Controllers
             var model = new TvShowViewModel();
             model.TvShows = listOfShows.Select(show => new TvShows
             {
-                ImageUrl = show.Image.Medium,
+                ImageUrl = show.Image?.Medium,
                 Name = show.Name,
                 Rating = show.Rating,
                 URL = show.Url

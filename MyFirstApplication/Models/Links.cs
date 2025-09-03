@@ -5,8 +5,8 @@ namespace MyFirstApplication.Models;
 public class Links
 {
     [JsonPropertyName("self")]
-    public Self Self { get; set; }
+    public Self? Self { get; set; }
 
     [JsonPropertyName("previousepisode")]
-    public Previousepisode Previousepisode { get; set; }
+    public Previousepisode? Previousepisode { get; set; }
 }

@@ -27,7 +27,11 @@ services.AddAuthentication(google =>
         google.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         google.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
     })
-    .AddCookie()
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.AccessDeniedPath = "/Account/Login";
+    })
     .AddGoogle(google =>
     {
         google.ClientId = appSettings.GoogleAuthSettings?.ClientId!;
