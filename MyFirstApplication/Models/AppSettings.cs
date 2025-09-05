@@ -5,6 +5,7 @@
         public string? BaseUri { get; set; }
         public int PageSize { get; set; }
         public Google? GoogleAuthSettings { get; set; }
+        public string? GoogleSignOutUrl { get; set; }
     }
 
     public class Google

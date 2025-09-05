@@ -2,12 +2,21 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using MyFirstApplication.Models;
 
 namespace MyFirstApplication.Controllers
 {
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
+        private readonly IOptions<AppSettings> _settings;
+
+        public AccountController(IOptions<AppSettings> settings)
+        {
+            _settings = settings;
+        }
+
         public IActionResult Login()
         {
             return View();
@@ -26,7 +35,8 @@ namespace MyFirstApplication.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             var returnUrl = Url.ActionLink(nameof(Login));
-            return Redirect($"https://www.google.com/accounts/logout?continue=https://appengine.google.com/_ah/logout?continue={returnUrl}");
+            var redirectUrl = _settings.Value.GoogleSignOutUrl + returnUrl;
+            return Redirect(redirectUrl);
         }
     }
 }
