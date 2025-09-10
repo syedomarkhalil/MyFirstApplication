@@ -36,6 +36,16 @@ services.AddAuthentication(google =>
     {
         google.ClientId = appSettings.GoogleAuthSettings?.ClientId!;
         google.ClientSecret = appSettings.GoogleAuthSettings?.ClientSecret!;
+    })
+    .AddFacebook(facebook =>
+    {
+        facebook.AppId = appSettings.FacebookAuthSettings?.AppId!;
+        facebook.AppSecret = appSettings.FacebookAuthSettings?.AppSecret!;
+    })
+    .AddTwitter(twitter =>
+    {
+        twitter.ConsumerKey = appSettings.TwitterAuthSettings?.ClientId!;
+        twitter.ConsumerSecret = appSettings.TwitterAuthSettings?.ClientSecret!;
     });
 
 services.AddScoped<ITvShowService, TvShowService>();
