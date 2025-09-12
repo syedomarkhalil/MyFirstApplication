@@ -4,10 +4,15 @@
     {
         public string? BaseUri { get; set; }
         public int PageSize { get; set; }
-        public Google? GoogleAuthSettings { get; set; }
-        public Facebook? FacebookAuthSettings { get; set; }
-        public Twitter? TwitterAuthSettings { get; set; }
         public string? GoogleSignOutUrl { get; set; }
+        public AuthenticationSettings? AuthenticationSettings { get; set; }
+    }
+
+    public class AuthenticationSettings
+    {
+        public Facebook? Facebook { get; set; }
+        public Twitter? Twitter { get; set; }
+        public Google? Google { get; set; }
     }
 
     public class Twitter
