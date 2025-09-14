@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.Google;
 using MyFirstApplication.Infrastructure;
 using MyFirstApplication.Models;
 using MyFirstApplication.Services;
@@ -22,11 +21,11 @@ services.AddHttpClient<TvShowHttpClient>(client =>
 services.AddHttpClient();
 services.AddControllersWithViews();
 
-services.AddAuthentication(google =>
-    {
-        google.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-        google.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
-    })
+services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+})
     .AddCookie(options =>
     {
         options.LoginPath = "/Account/Login";
