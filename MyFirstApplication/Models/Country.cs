@@ -1,15 +1,15 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace MyFirstApplication.Models;
 
 public class Country
 {
-    [JsonProperty("name")]
-    public string Name { get; set; }
+    [JsonPropertyName("name")]
+    public string? Name { get; set; }
 
-    [JsonProperty("code")]
-    public string Code { get; set; }
+    [JsonPropertyName("code")]
+    public string? Code { get; set; }
 
-    [JsonProperty("timezone")]
-    public string Timezone { get; set; }
+    [JsonPropertyName("timezone")]
+    public string? Timezone { get; set; }
 }

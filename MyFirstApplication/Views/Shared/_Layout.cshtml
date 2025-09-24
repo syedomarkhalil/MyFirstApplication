@@ -22,9 +22,24 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
+                        @* <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li> *@
+
+                        <li class="nav-item">
+                            @{
+                                var isAuthenticated = User.Identity.IsAuthenticated;
+                                var linkText = isAuthenticated ? "Logout" : "Login";
+                                var action = isAuthenticated ? "Logout" : "Login"; // in case action method is different to linkText, but last and this line are indentical
+                            }
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="@action">@linkText</a>
                         </li>
+                        @if (isAuthenticated)
+                        {
+                            <li>
+                                <a class="nav-link text-dark">@User.Identity?.Name</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

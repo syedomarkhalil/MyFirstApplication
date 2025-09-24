@@ -1,12 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace MyFirstApplication.Models;
 
 public class Schedule
 {
-    [JsonProperty("time")]
-    public string Time { get; set; }
+    [JsonPropertyName("time")]
+    public string? Time { get; set; }
 
-    [JsonProperty("days")]
-    public IList<string> Days { get; set; }
+    [JsonPropertyName("days")]
+    public IList<string>? Days { get; set; }
 }

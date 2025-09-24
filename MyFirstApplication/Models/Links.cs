@@ -1,13 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace MyFirstApplication.Models;
 
 public class Links
 {
+    [JsonPropertyName("self")]
+    public Self? Self { get; set; }
 
-    [JsonProperty("self")]
-    public Self Self { get; set; }
-
-    [JsonProperty("previousepisode")]
-    public Previousepisode Previousepisode { get; set; }
+    [JsonPropertyName("previousepisode")]
+    public Previousepisode? Previousepisode { get; set; }
 }

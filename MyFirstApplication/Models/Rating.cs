@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace MyFirstApplication.Models;
 
 public class Rating
 {
-    [JsonProperty("average")]
+    [JsonPropertyName("average")]
     public double? Average { get; set; }
 }

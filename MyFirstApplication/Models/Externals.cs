@@ -1,15 +1,15 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace MyFirstApplication.Models;
 
 public class Externals
 {
-    [JsonProperty("tvrage")]
+    [JsonPropertyName("tvrage")]
     public int? Tvrage { get; set; }
 
-    [JsonProperty("thetvdb")]
+    [JsonPropertyName("thetvdb")]
     public int? Thetvdb { get; set; }
 
-    [JsonProperty("imdb")]
+    [JsonPropertyName("imdb")]
     public string? Imdb { get; set; }
 }

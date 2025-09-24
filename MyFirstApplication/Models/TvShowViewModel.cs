@@ -2,6 +2,12 @@
 {
     public class TvShowViewModel
     {
+        public List<TvShows>? TvShows { get; set; }
+        public int TotalPages { get; set; }
+    }
+
+    public class TvShows
+    {
         public string? Name { get; set; }
         public Rating? Rating { get; set; }
         public string? ImageUrl { get; set; }

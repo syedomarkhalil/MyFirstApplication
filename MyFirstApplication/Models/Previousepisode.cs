@@ -1,12 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace MyFirstApplication.Models;
 
 public class Previousepisode
 {
-    [JsonProperty("href")]
-    public string Href { get; set; }
+    [JsonPropertyName("href")]
+    public string? Href { get; set; }
 
-    [JsonProperty("name")]
-    public string Name { get; set; }
+    [JsonPropertyName("name")]
+    public string? Name { get; set; }
 }

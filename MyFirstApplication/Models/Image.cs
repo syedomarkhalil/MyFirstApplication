@@ -1,12 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace MyFirstApplication.Models;
 
 public class Image
 {
-    [JsonProperty("medium")]
-    public string Medium { get; set; }
+    [JsonPropertyName("medium")]
+    public string? Medium { get; set; }
 
-    [JsonProperty("original")]
-    public string Original { get; set; }
+    [JsonPropertyName("original")]
+    public string? Original { get; set; }
 }

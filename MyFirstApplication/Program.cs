@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using MyFirstApplication.Infrastructure;
 using MyFirstApplication.Models;
 using MyFirstApplication.Services;
@@ -11,19 +12,45 @@ var services = builder.Services;
 var appSettingsSection = builder.Configuration.GetSection(nameof(AppSettings));
 var appSettings = appSettingsSection.Get<AppSettings>()!;
 
-builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<ITvShowService, TvShowService>();
-
 // configure the TvShowHttpClient, with the BaseUri from appSettings.
-builder.Services.AddHttpClient<TvShowHttpClient>(client =>
+services.AddHttpClient<TvShowHttpClient>(client =>
 {
-    client.BaseAddress = new Uri(appSettings.BaseUri);
+    client.BaseAddress = new Uri(appSettings.BaseUri!);
 });
 
-builder.Services.AddHttpClient();
+services.AddHttpClient();
+services.AddControllersWithViews();
 
-builder.Services.Configure<AppSettings>(builder.Configuration.GetSection(nameof(AppSettings)));
-builder.Services.AddOptions();
+services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+})
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.AccessDeniedPath = "/Account/Login";
+    })
+    .AddGoogle(google =>
+    {
+        google.ClientId = appSettings.AuthenticationSettings?.Google?.ClientId!;
+        google.ClientSecret = appSettings.AuthenticationSettings?.Google?.ClientSecret!;
+    })
+    .AddFacebook(facebook =>
+    {
+        facebook.AppId = appSettings.AuthenticationSettings?.Facebook?.AppId!;
+        facebook.AppSecret = appSettings.AuthenticationSettings?.Facebook?.AppSecret!;
+    })
+    .AddTwitter(twitter =>
+    {
+        twitter.ConsumerKey = appSettings.AuthenticationSettings?.Twitter?.ClientId!;
+        twitter.ConsumerSecret = appSettings?.AuthenticationSettings?.Twitter?.ClientSecret!;
+    });
+
+services.AddScoped<ITvShowService, TvShowService>();
+
+services.Configure<AppSettings>(builder.Configuration.GetSection(nameof(AppSettings)));
+services.AddOptions();
 
 var app = builder.Build();
 
@@ -40,6 +67,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
