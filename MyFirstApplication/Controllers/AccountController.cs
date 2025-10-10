@@ -34,7 +34,7 @@ namespace MyFirstApplication.Controllers
         }
 
         public async Task SignInWithFacebook()
-        {
+        {  
             await HttpContext.ChallengeAsync(FacebookDefaults.AuthenticationScheme, new AuthenticationProperties
             {
                 RedirectUri = Url.Action("Index", "Home")
@@ -51,10 +51,22 @@ namespace MyFirstApplication.Controllers
 
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            var loginProvider = User.Identity?.AuthenticationType;
             var returnUrl = Url.ActionLink(nameof(Login));
-            var redirectUrl = _settings.Value.GoogleSignOutUrl + returnUrl;
-            return Redirect(redirectUrl);
+            var redirectUrl = string.Empty;
+
+            if (loginProvider == "Facebook")
+            {
+                redirectUrl = _settings.Value.FacebookSignOutUrl + returnUrl;
+            }
+            if (loginProvider == "Google")
+            {
+                redirectUrl = _settings.Value.GoogleSignOutUrl + returnUrl;
+            }
+
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            
+            return Redirect(redirectUrl!);           
         }
     }
-}
+} 
