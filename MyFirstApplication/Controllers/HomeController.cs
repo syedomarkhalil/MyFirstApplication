@@ -2,8 +2,8 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using MyFirstApplication.Models;
-using MyFirstApplication.Services;
+using TvFlixApp.Domain.Interfaces;
+using TvFlixApp.Domain.Models;
 
 namespace MyFirstApplication.Controllers
 {

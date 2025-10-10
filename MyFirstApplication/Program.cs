@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using MyFirstApplication.Infrastructure;
-using MyFirstApplication.Models;
-using MyFirstApplication.Services;
+using TvFlixApp.Application.Services;
+using TvFlixApp.Domain.Interfaces;
+using TvFlixApp.Domain.Models;
+using TvFlixApp.Domain.TvShowHttpClient;
 
 var builder = WebApplication.CreateBuilder(args);
 

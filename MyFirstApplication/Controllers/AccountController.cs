@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.Twitter;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using MyFirstApplication.Models;
+using TvFlixApp.Domain.Models;
 
 namespace MyFirstApplication.Controllers
 {
