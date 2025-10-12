@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace TvFlixApp.Domain.Models;
+namespace TvFlixApp.Application.Models;
 
 public class Self
 {

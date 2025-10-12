@@ -1,6 +1,6 @@
-﻿using TvFlixApp.Domain.Models;
+﻿using TvFlixApp.Application.Models;
 
-namespace TvFlixApp.Domain.Interfaces
+namespace TvFlixApp.Application.Contracts
 {
     public interface ITvShowService
     {

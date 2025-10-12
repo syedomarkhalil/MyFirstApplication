@@ -1,16 +1,14 @@
-﻿using TvFlixApp.Application.Extensions;
-using TvFlixApp.Domain.Interfaces;
-using TvFlixApp.Domain.Models;
-using TvFlixApp.Domain.TvShowHttpClient;
+﻿using TvFlixApp.Application.Contracts;
+using TvFlixApp.Application.Extensions;
+using TvFlixApp.Application.Models;
 
-
-namespace TvFlixApp.Application.Services
+namespace TvFlixApp.Services
 {
     public class TvShowService : ITvShowService
     {
-        private readonly TvShowHttpClient _client;
+        private readonly ITvShowServiceClient _client;
 
-        public TvShowService(TvShowHttpClient client)
+        public TvShowService(ITvShowServiceClient client)
         {
             _client = client;
         }

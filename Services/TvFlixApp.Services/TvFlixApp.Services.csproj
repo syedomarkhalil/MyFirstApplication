@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TvFlixApp.Application\TvFlixApp.Application.csproj" />
+    <ProjectReference Include="..\..\TvFlixApp.Application\TvFlixApp.Application.csproj" />
   </ItemGroup>
 
 </Project>

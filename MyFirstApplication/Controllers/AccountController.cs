@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.Twitter;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using TvFlixApp.Domain.Models;
+using TvFlixApp.Application.Models;
 
-namespace MyFirstApplication.Controllers
+namespace TvFlixApp.Controllers
 {
     [Route("[controller]/[action]")]
     public class AccountController : Controller
