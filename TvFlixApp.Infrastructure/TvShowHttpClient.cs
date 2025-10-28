@@ -16,7 +16,7 @@ namespace TvFlixApp.Infrastructure
 
         public async Task<List<TvShow>> GetTvShows()
         {
-            var response = await httpClient.GetAsync("/shows");
+            var response = await httpClient.GetAsync("/api/tvshows");
 
             if (response.IsSuccessStatusCode)
             {

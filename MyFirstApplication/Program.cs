@@ -48,7 +48,6 @@ services.AddAuthentication(options =>
     });
 
 services.AddScoped<ITvShowService, TvShowService>();
-//services.AddScoped<ITvShowServiceClient, TvShowHttpClient>();
 
 services.Configure<AppSettings>(builder.Configuration.GetSection(nameof(AppSettings)));
 services.AddOptions();
