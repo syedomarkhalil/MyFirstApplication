@@ -2,10 +2,11 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using MyFirstApplication.Models;
-using MyFirstApplication.Services;
+using TvFlixApp.Application.Contracts;
+using TvFlixApp.Application.Models;
+using TvFlixApp.Models;
 
-namespace MyFirstApplication.Controllers
+namespace TvFlixApp.Controllers
 {
     [Authorize]
     [Route("[controller]/[action]")]

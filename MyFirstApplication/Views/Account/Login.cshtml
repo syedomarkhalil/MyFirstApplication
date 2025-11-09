@@ -1,4 +1,5 @@
-﻿@model LoginViewModel
+﻿@using TvFlixApp.Models
+@model LoginViewModel
 @{
     ViewBag.Title = "User Login";
 
@@ -27,7 +28,7 @@
                         @Html.DisplayNameFor(m => m.RememberMe)
                     </label>
                 </div>
-            </div>            
+            </div>
             <button type="submit" disabled class="btn btn-primary">Login</button>
         </form>
     </div>
@@ -44,7 +45,7 @@
             </a>
             <a href="@Url.Action("SignInWithTwitter", "Account")" class="twitter btn">
                 <i class="fa fa-twitter fa-fw"></i> Twitter
-            </a>            
-      </div>        
+            </a>
+        </div>
     </div>
 </div>

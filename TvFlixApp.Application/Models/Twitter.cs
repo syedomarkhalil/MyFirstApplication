@@ -1,6 +1,6 @@
-﻿namespace MyFirstApplication.Models
+﻿namespace TvFlixApp.Application.Models
 {
-    public class Google
+    public class Twitter
     {
         public string? ClientId { get; set; }
         public string? ClientSecret { get; set; }

@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using MyFirstApplication.Infrastructure;
-using MyFirstApplication.Models;
-using MyFirstApplication.Services;
+using TvFlixApp.Application.Contracts;
+using TvFlixApp.Application.Models;
+using TvFlixApp.Infrastructure;
+using TvFlixApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,12 +14,11 @@ var appSettingsSection = builder.Configuration.GetSection(nameof(AppSettings));
 var appSettings = appSettingsSection.Get<AppSettings>()!;
 
 // configure the TvShowHttpClient, with the BaseUri from appSettings.
-services.AddHttpClient<TvShowHttpClient>(client =>
+services.AddHttpClient<ITvShowServiceClient, TvShowHttpClient>(client =>
 {
     client.BaseAddress = new Uri(appSettings.BaseUri!);
 });
 
-services.AddHttpClient();
 services.AddControllersWithViews();
 
 services.AddAuthentication(options =>

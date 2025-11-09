@@ -1,10 +1,11 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using MyFirstApplication.Models;
+using TvFlixApp.Application.Contracts;
+using TvFlixApp.Application.Models;
 
-namespace MyFirstApplication.Infrastructure
+namespace TvFlixApp.Infrastructure
 {
-    public class TvShowHttpClient(HttpClient httpClient)
+    public class TvShowHttpClient(HttpClient httpClient) : ITvShowServiceClient
     {
         private static readonly JsonSerializerOptions options = new()
         {
@@ -15,7 +16,7 @@ namespace MyFirstApplication.Infrastructure
 
         public async Task<List<TvShow>> GetTvShows()
         {
-            var response = await httpClient.GetAsync("/shows");
+            var response = await httpClient.GetAsync("/api/tvshows");
 
             if (response.IsSuccessStatusCode)
             {

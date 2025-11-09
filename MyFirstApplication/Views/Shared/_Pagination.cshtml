@@ -1,9 +1,10 @@
-﻿@model PaginationViewModel
+﻿@using TvFlixApp.Models
+@model PaginationViewModel
 
 @{
     for (int p = 1; p <= Model.TotalPages; p++)
     {
-        <a href ="@Url.RouteUrl(Model.RouteName, new { pageNumber = p })">@p.ToString()</a>
+        <a href="@Url.RouteUrl(Model.RouteName, new { pageNumber = p })">@p.ToString()</a>
         <span> </span>
     }
 }

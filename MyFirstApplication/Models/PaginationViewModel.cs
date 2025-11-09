@@ -1,4 +1,4 @@
-﻿namespace MyFirstApplication.Models
+﻿namespace TvFlixApp.Models
 {
     public class PaginationViewModel
     {

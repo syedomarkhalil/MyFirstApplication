@@ -1,4 +1,4 @@
-﻿namespace MyFirstApplication.Extensions
+﻿namespace TvFlixApp.Application.Extensions
 {
     public static class Extensions
     {

@@ -1,4 +1,6 @@
-﻿namespace MyFirstApplication.Models
+﻿using TvFlixApp.Application.Models;
+
+namespace TvFlixApp.Models
 {
     public class TvShowViewModel
     {

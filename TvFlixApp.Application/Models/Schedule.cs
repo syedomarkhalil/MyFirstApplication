@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace MyFirstApplication.Models;
+namespace TvFlixApp.Application.Models;
 
 public class Schedule
 {

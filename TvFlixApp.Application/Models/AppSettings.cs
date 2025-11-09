@@ -1,4 +1,4 @@
-﻿namespace MyFirstApplication.Models
+﻿namespace TvFlixApp.Application.Models
 {
     public class AppSettings
     {

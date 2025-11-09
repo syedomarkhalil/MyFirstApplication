@@ -1,17 +1,17 @@
-﻿@model MyFirstApplication.Models.TvShowViewModel
+﻿@using TvFlixApp.Models
+@model TvShowViewModel
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p><a>Display List Of Shows</a>.</p>
 
-
     @{
         var routeName = ViewContext.ActionDescriptor.AttributeRouteInfo.Name;
         var paginationVewModel = new PaginationViewModel
-            {
-                TotalPages = Model.TotalPages,
-                RouteName = routeName
-            };
+        {
+            TotalPages = Model.TotalPages,
+            RouteName = routeName
+        };
     }
     @Html.Partial("_Pagination", paginationVewModel)
     <p></p>
@@ -21,7 +21,7 @@
     <table>
         @{
             int itemsPerRow = 4;
-            int totalItems = Model.TvShows.Count;        
+            int totalItems = Model.TvShows.Count;
 
             for (int i = 0; i < totalItems; i++)
             {

@@ -1,14 +1,14 @@
-﻿using MyFirstApplication.Extensions;
-using MyFirstApplication.Infrastructure;
-using MyFirstApplication.Models;
+﻿using TvFlixApp.Application.Contracts;
+using TvFlixApp.Application.Extensions;
+using TvFlixApp.Application.Models;
 
-namespace MyFirstApplication.Services
+namespace TvFlixApp.Services
 {
     public class TvShowService : ITvShowService
     {
-        private readonly TvShowHttpClient _client;
+        private readonly ITvShowServiceClient _client;
 
-        public TvShowService(TvShowHttpClient client)
+        public TvShowService(ITvShowServiceClient client)
         {
             _client = client;
         }

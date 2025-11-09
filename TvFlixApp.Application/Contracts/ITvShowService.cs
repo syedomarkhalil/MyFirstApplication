@@ -1,6 +1,6 @@
-﻿using MyFirstApplication.Models;
+﻿using TvFlixApp.Application.Models;
 
-namespace MyFirstApplication.Services
+namespace TvFlixApp.Application.Contracts
 {
     public interface ITvShowService
     {

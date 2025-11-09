@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authentication;
 
-namespace MyFirstApplication.Models
+namespace TvFlixApp.Models
 {
     public class LoginViewModel
     {
