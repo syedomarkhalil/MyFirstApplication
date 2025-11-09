@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\TvFlix-Aspire.ServiceDefaults\TvFlix-Aspire.ServiceDefaults.csproj" />
     <ProjectReference Include="..\Services\TvFlixApp.Services\TvFlixApp.Services.csproj" />
     <ProjectReference Include="..\TvFlixApp.Application\TvFlixApp.Application.csproj" />
     <ProjectReference Include="..\TvFlixApp.Infrastructure\TvFlixApp.Infrastructure.csproj" />
