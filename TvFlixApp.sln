@@ -24,6 +24,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.Core", "1.Core", "{3D8535
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.Infrastructure", "2.Infrastructure", "{120AD886-2441-4700-AD82-F90E7B98AC83}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".ServiceDefaults", ".ServiceDefaults", "{11F9C165-EE40-4B1A-BE8F-A75523EADD02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TvFlix-Aspire.ServiceDefaults", "..\TvFlix-Aspire.ServiceDefaults\TvFlix-Aspire.ServiceDefaults.csproj", "{EB99596F-6AFA-5985-0379-7D771B117E8C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +54,10 @@ Global
 		{37457C0E-CA47-447B-87D4-59657FFA261B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37457C0E-CA47-447B-87D4-59657FFA261B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37457C0E-CA47-447B-87D4-59657FFA261B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB99596F-6AFA-5985-0379-7D771B117E8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB99596F-6AFA-5985-0379-7D771B117E8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB99596F-6AFA-5985-0379-7D771B117E8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB99596F-6AFA-5985-0379-7D771B117E8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +68,7 @@ Global
 		{81F8D2AA-D04B-41E2-B627-1336248003D2} = {3D85359B-53F3-46D6-A628-151135109DB2}
 		{263CA175-602B-47FF-807A-D08FA92CB289} = {120AD886-2441-4700-AD82-F90E7B98AC83}
 		{37457C0E-CA47-447B-87D4-59657FFA261B} = {3D85359B-53F3-46D6-A628-151135109DB2}
+		{EB99596F-6AFA-5985-0379-7D771B117E8C} = {11F9C165-EE40-4B1A-BE8F-A75523EADD02}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F488A4D2-86E0-4C86-8065-A986BBA2A18B}
