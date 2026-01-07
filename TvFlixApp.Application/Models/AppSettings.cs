@@ -6,6 +6,7 @@
         public int PageSize { get; set; }
         public string? GoogleSignOutUrl { get; set; }
         public string? FacebookSignOutUrl { get; set; }
-        public AuthenticationSettings? AuthenticationSettings { get; set; }
+        public AuthenticationSettings? AuthenticationSettings { get; set; }        
+        public JWTTokenSettings? JWTTokenSettings { get; set; }
     }
 }

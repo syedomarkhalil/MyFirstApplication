@@ -7,12 +7,10 @@ namespace TvFlixApp.Services
     public class TvShowService : ITvShowService
     {
         private readonly ITvShowServiceClient _client;
-
         public TvShowService(ITvShowServiceClient client)
         {
             _client = client;
         }
-
         public async Task<(List<TvShow>, int)> GetTvShows(int pageNumber, int pageSize)
         {
             var listOfShows = await _client.GetTvShows();

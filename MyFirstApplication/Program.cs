@@ -1,5 +1,7 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using TvFlixApp.Application.Contracts;
+using TvFlixApp.Application.Helpers;
 using TvFlixApp.Application.Models;
 using TvFlixApp.Infrastructure;
 using TvFlixApp.Services;
@@ -50,6 +52,8 @@ services.AddAuthentication(options =>
     });
 
 services.AddScoped<ITvShowService, TvShowService>();
+services.AddScoped<IJwtTokenService, JwtTokenService>();
+services.AddHttpContextAccessor();
 
 services.Configure<AppSettings>(builder.Configuration.GetSection(nameof(AppSettings)));
 services.AddOptions();

@@ -31,6 +31,7 @@ namespace TvFlixApp.Controllers
             {
                 RedirectUri = Url.Action("Index", "Home")
             });
+            
         }
 
         public async Task SignInWithFacebook()
@@ -55,16 +56,20 @@ namespace TvFlixApp.Controllers
             var returnUrl = Url.ActionLink(nameof(Login));
             var redirectUrl = string.Empty;
 
-            if (loginProvider == "Facebook")
-            {
-                redirectUrl = _settings.Value.FacebookSignOutUrl + returnUrl;
-            }
+            //if (loginProvider == "Facebook")
+            //{
+            //    redirectUrl = _settings.Value.FacebookSignOutUrl + returnUrl;
+            //}
             if (loginProvider == "Google")
             {
                 redirectUrl = _settings.Value.GoogleSignOutUrl + returnUrl;
             }
+            else
+            {
+                redirectUrl += returnUrl;
+            }
 
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             
             return Redirect(redirectUrl!);           
         }

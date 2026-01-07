@@ -5,7 +5,6 @@ using Microsoft.Extensions.Options;
 using TvFlixApp.Application.Contracts;
 using TvFlixApp.Application.Models;
 using TvFlixApp.Models;
-
 namespace TvFlixApp.Controllers
 {
     [Authorize]
@@ -27,7 +26,7 @@ namespace TvFlixApp.Controllers
         [Route("~/")]
         [Route("{pageNumber?}", Name = "Get_Shows")]
         public async Task<IActionResult> Index(int pageNumber = 1)
-        {
+        { 
             var model = await GetTvShows(pageNumber);
             return View(model);
         }
