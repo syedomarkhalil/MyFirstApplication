@@ -1,14 +1,21 @@
 ﻿using System.Net.Http.Headers;
+using System.Reflection.Metadata;
+using System.Security.Claims;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using TvFlixApp.Application.Contracts;
 using TvFlixApp.Application.Models;
+
+
 
 namespace TvFlixApp.Infrastructure
 {
     
-    public class TvShowHttpClient(HttpClient httpClient, IJwtTokenService jwtTokenService) : ITvShowServiceClient
+    public class TvShowHttpClient(HttpClient httpClient, IJwtTokenService jwtTokenService, IHttpContextAccessor context) : ITvShowServiceClient
     {
+        
         private static readonly JsonSerializerOptions options = new()
         {
             PropertyNameCaseInsensitive = true,
@@ -18,9 +25,9 @@ namespace TvFlixApp.Infrastructure
        
         public async Task<List<TvShow>> GetTvShows()
         {
-            var token = jwtTokenService.GenerateToken();            
-
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var accessToken = await context.HttpContext.GetTokenAsync("access_token");
+            
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             var response = await httpClient.GetAsync("/api/tvshows");
             
             if (response.IsSuccessStatusCode)

@@ -1,5 +1,8 @@
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
+using NuGet.Protocol;
 using TvFlixApp.Application.Contracts;
 using TvFlixApp.Application.Helpers;
 using TvFlixApp.Application.Models;
@@ -35,10 +38,20 @@ services.AddAuthentication(options =>
         options.LoginPath = "/Account/Login";
         options.AccessDeniedPath = "/Account/Login";
     })
-    .AddGoogle(google =>
+    .AddGoogle(googleOptions =>
     {
-        google.ClientId = appSettings.AuthenticationSettings?.Google?.ClientId!;
-        google.ClientSecret = appSettings.AuthenticationSettings?.Google?.ClientSecret!;
+        googleOptions.ClientId = appSettings.AuthenticationSettings?.Google?.ClientId!;
+        googleOptions.ClientSecret = appSettings.AuthenticationSettings?.Google?.ClientSecret!;
+        googleOptions.SaveTokens = true;
+        
+        googleOptions.Events.OnCreatingTicket += context =>
+        {
+            var accessToken = context.AccessToken;
+            if (!string.IsNullOrEmpty(accessToken))
+                context.Identity?.AddClaim(new Claim("access_token", accessToken));
+
+            return Task.CompletedTask;
+        };
     })
     .AddFacebook(facebook =>
     {
