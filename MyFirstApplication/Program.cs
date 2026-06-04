@@ -2,7 +2,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
-using NuGet.Protocol;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using TvFlixApp.Application.Contracts;
 using TvFlixApp.Application.Helpers;
 using TvFlixApp.Application.Models;
@@ -31,6 +31,7 @@ services.AddControllersWithViews();
 services.AddAuthentication(options =>
 {
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 })
     .AddCookie(options =>
@@ -38,20 +39,20 @@ services.AddAuthentication(options =>
         options.LoginPath = "/Account/Login";
         options.AccessDeniedPath = "/Account/Login";
     })
-    .AddGoogle(googleOptions =>
+    .AddGoogleOpenIdConnect(GoogleDefaults.AuthenticationScheme, googleOptions =>
     {
+        googleOptions.Authority = "https://accounts.google.com";
         googleOptions.ClientId = appSettings.AuthenticationSettings?.Google?.ClientId!;
         googleOptions.ClientSecret = appSettings.AuthenticationSettings?.Google?.ClientSecret!;
+        googleOptions.ResponseType = OpenIdConnectResponseType.IdToken;
         googleOptions.SaveTokens = true;
-        
-        googleOptions.Events.OnCreatingTicket += context =>
-        {
-            var accessToken = context.AccessToken;
-            if (!string.IsNullOrEmpty(accessToken))
-                context.Identity?.AddClaim(new Claim("access_token", accessToken));
-
-            return Task.CompletedTask;
-        };
+        googleOptions.Scope.Add("openid");
+        googleOptions.Scope.Add("profile");
+        googleOptions.Scope.Add("email");
+        googleOptions.CallbackPath = "/signin-google"; // Default callback path
+        googleOptions.SignedOutCallbackPath = "/google/logout";
+        googleOptions.GetClaimsFromUserInfoEndpoint = true;
+        googleOptions.ClaimActions.MapUniqueJsonKey(ClaimTypes.Name, "given_name");
     })
     .AddFacebook(facebook =>
     {
@@ -74,7 +75,6 @@ services.AddOptions();
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
-
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -96,4 +96,4 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{pageNumber?}");
 
-app.Run();
+await app.RunAsync();
